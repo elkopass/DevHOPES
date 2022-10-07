@@ -1,0 +1,40 @@
+# Please refer environment specific values in `environments` folder
+name: example-application
+namespace: example
+
+image:
+  tag: latest
+  repository: your.company.com/projects/example
+  extraEnv:
+    BIND_IP: "0.0.0.0"
+    BIND_PORT: "8080"
+
+config:
+  replicas: 1
+  podAnnotations:
+    prometheus.io/path: /metrics
+    prometheus.io/port: '8080'
+    prometheus.io/scrape: 'true'
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: http
+      scheme: HTTP
+    initialDelaySeconds: 30
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: http
+      scheme: HTTP
+    initialDelaySeconds: 30
+  resources:
+    requests:
+      memory: "300Mi"
+      cpu: "200m"
+    limits:
+      memory: "700Mi"
+      cpu: "500m"
+
+istio:
+  ports:
+    http: 8080

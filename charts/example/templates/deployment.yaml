@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+{{ include "common.labels" . | indent 4 }}
+  annotations:
+{{ include "common.annotations" . | indent 4 }}
+spec:
+  replicas: {{ .Values.config.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      {{- if .Values.config.podAnnotations }}
+      annotations:
+{{ toYaml .Values.config.podAnnotations | indent 8 }}
+      {{- end }}
+      labels:
+        app: {{ .Values.name }}
+        release: {{ .Release.Name }}
+        version: {{ .Values.image.tag | quote }}
+    spec:
+      containers:
+        - name: {{ .Values.name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          env:
+            {{- range $key, $value := .Values.image.extraEnv }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+          ports:
+            {{- range $key, $value := .Values.istio.ports }}
+            - name: {{ $key }}
+              containerPort: {{ $value }}
+            {{- end }}
+          resources:
+{{ toYaml .Values.config.resources | indent 12 }}
+          {{- if .Values.config.livenessProbe }}
+          livenessProbe:
+{{ toYaml .Values.config.livenessProbe | indent 12 }}
+          {{- end }}
+          {{- if .Values.config.readinessProbe }}
+          readinessProbe:
+{{ toYaml .Values.config.readinessProbe | indent 12 }}
+          {{- end }}

@@ -1,0 +1,18 @@
+env: prod
+
+image:
+  extraEnv:
+    KEKUS: PEKUS
+
+config:
+  livenessProbe:
+    initialDelaySeconds: 60
+  readinessProbe:
+    initialDelaySeconds: 60
+  resources:
+    requests:
+      memory: "700Mi"
+      cpu: "150m"
+    limits:
+      memory: "1200Mi"
+      cpu: "500m"
