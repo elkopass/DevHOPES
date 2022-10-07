@@ -21,7 +21,7 @@
 ```bash
  $ export SERVICE=example
  $ export ENV=qa
- $ helm template -f demo/environments/values.$ENV.yaml 1.0.0 vendor/$SERVICE
+ $ helm template -f demo/values.yaml -f demo/environments/values.$ENV.yaml 1.0.0 vendor/$SERVICE
 ```
 
 ### Команды qbec
