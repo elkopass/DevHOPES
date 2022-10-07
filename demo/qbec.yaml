@@ -8,4 +8,21 @@ spec:
     default:
       defaultNamespace: default
       server: https://localhost:8443
-  vars: {}
+  vars:
+    external:
+      - name: cm-value
+        default: def
+    computed:
+      - name: helm
+        code: |
+          {
+            command: './script.sh',
+            args: [ "-s", "../vendor/example", "-v", "0.1.0" ],
+            env: {},
+            stdin: '',
+          }
+  dataSources:
+    # data sources are declared to be of the form
+    #   <kind>://<name>?configVar=<configuration-variable-name>
+    # in this case kind=exec, name=config-map, and config var is cmdConfig defined above
+    - exec://config-map?configVar=helm

@@ -1,64 +1,8 @@
-
-local p = import '../params.libsonnet';
-local params = p.components.hello;
-
-[
-  {
-    apiVersion: 'v1',
-    kind: 'ConfigMap',
-    metadata: {
-      name: 'demo-config',
-    },
-    data: {
-      'index.html': params.indexData,
-    },
-  },
-  {
-    apiVersion: 'apps/v1',
-    kind: 'Deployment',
-    metadata: {
-      name: 'demo-deploy',
-      labels: {
-        app: 'demo-deploy',
-      },
-    },
-    spec: {
-      replicas: params.replicas,
-      selector: {
-        matchLabels: {
-          app: 'demo-deploy',
-        },
-      },
-      template: {
-        metadata: {
-          labels: {
-            app: 'demo-deploy',
-          },
-        },
-        spec: {
-          containers: [
-            {
-              name: 'main',
-              image: 'nginx:stable',
-              imagePullPolicy: 'Always',
-              volumeMounts: [
-                {
-                  name: 'web',
-                  mountPath: '/usr/share/nginx/html',
-                },
-              ],
-            },
-          ],
-          volumes: [
-            {
-              name: 'web',
-              configMap: {
-                name: 'demo-config',
-              },
-            },
-          ],
-        },
-      },
-    },
-  },
-]
+// we pull in the generated config map as a string usiong importstr
+// the syntax for the import is:
+//   data://<data-source-name>[/optional/path]
+// in this data source implementation the path appears in the config map
+// when used for real it can contain information such as the path to a vault KV entry,
+// a path to a helm chart and so on.
+local cmYaml = importstr 'data://config-map/some/path';
+std.native('parseYaml')(cmYaml)
