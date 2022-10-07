@@ -16,4 +16,17 @@
 
 ### Команды qbec
 
-TBD
+#### Генерация спеки из конфигов
+
+```bash
+ $ cd demo
+ $ qbec show default
+```
+
+#### Отображение компонент и параметров
+
+```bash
+ $ cd demo
+ $ qbec component list default
+ $ qbec param list default
+```
