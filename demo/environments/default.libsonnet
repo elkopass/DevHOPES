@@ -4,8 +4,7 @@ local base = import './base.libsonnet';
 base {
   components +: {
     example +: {
-      indexData: 'demo default\n',
-      replicas: 2,
+
     },
   }
 }
