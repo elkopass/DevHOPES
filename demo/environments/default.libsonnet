@@ -3,8 +3,8 @@ local base = import './base.libsonnet';
 
 base {
   components +: {
-    hello +: {
-      indexData: 'hello default\n',
+    example +: {
+      indexData: 'demo default\n',
       replicas: 2,
     },
   }

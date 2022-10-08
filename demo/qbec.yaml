@@ -25,7 +25,4 @@ spec:
             stdin: '',
           }
   dataSources:
-    # data sources are declared to be of the form
-    #   <kind>://<name>?configVar=<configuration-variable-name>
-    # in this case kind=exec, name=config-map, and config var is cmdConfig defined above
-    - exec://config-map?configVar=helm
+    - exec://helm?configVar=helm

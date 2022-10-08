@@ -1,7 +1,7 @@
 {
   components: {
-    hello: {
-      indexData: 'hello baseline\n',
+    example: {
+      indexData: 'demo baseline\n',
       replicas: 1,
     },
   },
