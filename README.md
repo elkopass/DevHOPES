@@ -30,13 +30,13 @@
 
 ```bash
  $ cd demo
- $ qbec show default
+ $ qbec show prod
 ```
 
 #### Отображение компонент и параметров
 
 ```bash
  $ cd demo
- $ qbec component list default
- $ qbec param list default
+ $ qbec component list prod
+ $ qbec param list prod
 ```

@@ -5,9 +5,12 @@ metadata:
   name: demo
 spec:
   environments:
-    default:
-      defaultNamespace: default
+    stage:
+      defaultNamespace: stage
       server: https://localhost:8443
+    prod:
+      defaultNamespace: prod
+      server: https://localhost:443
   vars:
     external:
       - name: cm-value
