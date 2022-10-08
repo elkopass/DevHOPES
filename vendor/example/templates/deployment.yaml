@@ -9,8 +9,8 @@ metadata:
     component: {{ .Chart.Name }}
     release: {{ .Release.Name }}
   annotations:
-    meta.helm.sh/release-name: { { .Release.Name } }
-    meta.helm.sh/release-namespace: { { .Release.Namespace } }
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
   replicas: {{ .Values.config.replicas }}
   selector:
